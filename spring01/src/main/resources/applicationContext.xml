@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--配置helloWorld-->
+    <!--id唯一且只有一个-->
+    <bean id="hw" class="net.wanho.HelloWorld">
+        <property name="name" value="lisi"/>
+    </bean>
+
+    <!--name唯一但是可以有多个值-->
+    <bean name="hw1,hw2" class="net.wanho.HelloWorld">
+        <property name="name" value="lisi"/>
+    </bean>
+
+
+    <!--配置stu对象-->
+    <bean id="stu" class="net.wanho.Student">
+        <property name="id" value="1"/>
+        <property name="name" value="zhangsan"/>
+        <property name="age" value="12"/>
+    </bean>
+
+
+    <!--构造方法注入默认按照有参构造方法的参数顺序，如果需要调位置，可以更改下标-->
+   <!-- <bean id="stu2" class="net.wanho.Student">
+        <constructor-arg value="2"/>
+        <constructor-arg value="lisi"/>
+        <constructor-arg value="15"/>
+    </bean>
+    <bean id="stu21" class="net.wanho.Student">
+        <constructor-arg value="lisi" index="1"/>
+        <constructor-arg value="2" index="0"/>
+        <constructor-arg value="15" index="2"/>
+    </bean>-->
+
+    <bean id="stu3" class="net.wanho.Student">
+
+        <property name="id" value="1"/>
+        <property name="name">
+            <null/>
+        </property>
+        <property name="age" value="12"/>
+        <!--引用外部-->
+        <!--<property name="score" ref="score"/>-->
+        <!--引用内部-->
+      <!--  <property name="score">
+            <bean class="net.wanho.Score">
+                <property name="chinese" value="100"/>
+                <property name="math" value="80"/>
+                <property name="english" value="100"/>
+            </bean>
+        </property>-->
+
+
+        <!--级联属性-->
+        <property name="score">
+            <bean class="net.wanho.Score"/>
+        </property>
+
+        <property name="score.english" value="100"/>
+        <property name="score.math" value="100"/>
+        <property name="score.chinese" value="100"/>
+
+
+    </bean>
+
+    <!--<bean id="score" class="net.wanho.Score">
+        <property name="chinese" value="100"/>
+        <property name="math" value="100"/>
+        <property name="english" value="100"/>
+    </bean>-->
+
+
+    <!--配置list-->
+    <bean id="stu4" class="net.wanho.Student">
+
+        <property name="id" value="1"/>
+        <property name="name" value="lisi"/>
+        <property name="age" value="12"/>
+        <property name="scores">
+            <list>
+                <!--引用外部-->
+                <ref bean="score"/>
+                <ref bean="score"/>
+                <ref bean="score"/>
+                <!--引用内部-->
+                <bean class="net.wanho.Score">
+                    <property name="chinese" value="100"/>
+                    <property name="math" value="100"/>
+                    <property name="english" value="100"/>
+                </bean>
+
+                <bean class="net.wanho.Score">
+                    <property name="chinese" value="0"/>
+                    <property name="math" value="100"/>
+                    <property name="english" value="100"/>
+                </bean>
+
+
+            </list>
+        </property>
+    </bean>
+
+    <!--配置set-->
+    <bean id="stu5" class="net.wanho.Student">
+
+        <property name="id" value="1"/>
+        <property name="name" value="lisi"/>
+        <property name="age" value="12"/>
+        <property name="scoreSet">
+            <set>
+                <!--引用外部-->
+                <ref bean="score"/>
+                <ref bean="score"/>
+                <ref bean="score"/>
+                <!--引用内部-->
+                <bean class="net.wanho.Score">
+                    <property name="chinese" value="100"/>
+                    <property name="math" value="100"/>
+                    <property name="english" value="100"/>
+                </bean>
+
+                <bean class="net.wanho.Score">
+                    <property name="chinese" value="0"/>
+                    <property name="math" value="100"/>
+                    <property name="english" value="100"/>
+                </bean>
+
+
+            </set>
+        </property>
+    </bean>
+
+
+    <!--配置map-->
+    <bean id="stu6" class="net.wanho.Student">
+
+        <property name="id" value="1"/>
+        <property name="name" value="lisi"/>
+        <property name="age" value="12"/>
+        <property name="scoreMap">
+            <map>
+               <!--引用外部-->
+                <entry key="1" value-ref="score"/>
+                <entry key="2" value-ref="score"/>
+                <entry key="3" value-ref="score"/>
+
+                <!--引用内部-->
+                <entry key="4">
+                    <bean class="net.wanho.Score">
+                        <property name="chinese" value="0"/>
+                        <property name="math" value="100"/>
+                        <property name="english" value="100"/>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+
+    <!--配置属性-->
+    <bean id="stu7" class="net.wanho.Student">
+
+        <property name="id" value="1"/>
+        <property name="name" value="lisi"/>
+        <property name="age" value="12"/>
+       <property name="p">
+           <props>
+               <prop key="jdbc.driver">com.mysql.jdbc.Driver</prop>
+               <prop key="jdbc.url">jdbc:mysql://127.0.0.1:3306/java127</prop>
+               <prop key="jdbc.username">root</prop>
+               <prop key="jdbc.password">123</prop>
+           </props>
+       </property>
+    </bean>
+
+
+
+
+
+    <bean id="score" class="net.wanho.Score">
+         <property name="chinese" value="100"/>
+         <property name="math" value="100"/>
+         <property name="english" value="100"/>
+     </bean>
+
+    <util:list id="list">
+        <!--引用外部-->
+        <ref bean="score"/>
+        <ref bean="score"/>
+        <ref bean="score"/>
+        <!--引用内部-->
+        <bean class="net.wanho.Score">
+            <property name="chinese" value="100"/>
+            <property name="math" value="100"/>
+            <property name="english" value="100"/>
+        </bean>
+
+        <bean class="net.wanho.Score">
+            <property name="chinese" value="0"/>
+            <property name="math" value="100"/>
+            <property name="english" value="100"/>
+        </bean>
+    </util:list>
+
+
+
+
+    <!--配置list-->
+    <bean id="stu8" class="net.wanho.Student">
+
+        <property name="id" value="1"/>
+        <property name="name" value="lisi"/>
+        <property name="age" value="12"/>
+        <property name="scores" ref="list"/>
+    </bean>
+
+    <bean id="stu9" class="net.wanho.Student">
+
+        <property name="id" value="1"/>
+        <property name="name" value="王五"/>
+        <property name="age" value="12"/>
+        <property name="scores" ref="list"/>
+    </bean>
+
+
+    <util:map id="map">
+        <!--引用外部-->
+        <entry key="1" value-ref="score"/>
+        <entry key="2" value-ref="score"/>
+        <entry key="3" value-ref="score"/>
+
+        <!--引用内部-->
+        <entry key="4">
+            <bean class="net.wanho.Score">
+                <property name="chinese" value="0"/>
+                <property name="math" value="100"/>
+                <property name="english" value="100"/>
+            </bean>
+        </entry>
+    </util:map>
+
+    <bean id="stu10" class="net.wanho.Student">
+
+        <property name="id" value="1"/>
+        <property name="name" value="王五"/>
+        <property name="age" value="12"/>
+        <property name="scoreMap" ref="map"/>
+    </bean>
+
+    <!--p命名空间-->
+    <bean id="stu11" class="net.wanho.Student" p:id="1" p:age="12" p:name="赵六" p:scoreMap-ref="map"/>
+
+
+
+
+
+
+</beans>

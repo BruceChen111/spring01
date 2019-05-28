@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+   <!--配置自动装配-->
+    <bean id="stu12" class="net.wanho.Student" autowire="byName" scope="prototype">
+
+        <property name="id" value="1"/>
+        <property name="name" value="王五"/>
+        <property name="age" value="12"/>
+    </bean>
+
+    <bean id="score" class="net.wanho.Score">
+        <property name="chinese" value="0"/>
+        <property name="math" value="100"/>
+        <property name="english" value="100"/>
+    </bean>
+
+
+    <bean id="score2" class="net.wanho.Score">
+        <property name="chinese" value="0"/>
+        <property name="math" value="50"/>
+        <property name="english" value="50"/>
+    </bean>
+
+    <!--classpath:  去编译后的classes文件夹下去寻找
+    classpath*:去编译后的classes文件夹下去寻找  jar中也进行搜索
+    -->
+    <!--读取properties文件需要的配置-->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+        <!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/step5test"/>-->
+        <!--<property name="username" value="root"/>-->
+        <!--<property name="password" value="123456"/>-->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+
+
+
+</beans>
